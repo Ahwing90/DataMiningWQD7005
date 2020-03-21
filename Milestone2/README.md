@@ -9,3 +9,5 @@ WQD180104 - Tan Bing Shien
 --------------
 
 Milestone 2: Storing Data into a Data Warehouse 
+
+Youtube Link: https://youtu.be/F90xnP5okRk
