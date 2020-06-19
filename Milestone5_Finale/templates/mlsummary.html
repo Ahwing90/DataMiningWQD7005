@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>WQD7005 Flask Deployment</h1>
+	<h2>{{ postTitle }}</h2>
+	
+	<br />
+	<h3>Accuracy</h3>
+    <canvas id="chart1" width="600" height="400"></canvas>
+	<h3>F1 Score</h3>
+	<canvas id="chart2" width="600" height="400"></canvas>
+    <script>
+	// Accuracy
+	var barAccuracy = {
+		labels : [
+		
+			{% for item in labels %}
+			"{{ item }}",
+			{% endfor %}
+		],
+	
+		datasets : [{
+			fillColor: "rgba(151,187,205,0.2)",
+			strokeColor: "rgba(151,187,205,1)",
+			pointColor: "rgba(151,187,205,1)",
+			data : [
+				{% for item in valuesAccuracy %}
+				"{{ item }}",
+				{% endfor %}
+			]
+		}]
+	}
+
+	// F1-Score
+	var barF1 = {
+		labels : [
+		
+			{% for item in labels %}
+			"{{ item }}",
+			{% endfor %}
+		],
+	
+		datasets : [{
+			fillColor: "rgba(251,187,205,0.2)",
+			strokeColor: "rgba(251,187,205,1)",
+			pointColor: "rgba(251,187,205,1)",
+			data : [
+				{% for item in valuesF1 %}
+				"{{ item }}",
+				{% endfor %}
+			]
+		}]
+	}
+
+	// get bar chart canvas	
+	var mychart1 = document.getElementById("chart1").getContext("2d");
+	var mychart2 = document.getElementById("chart2").getContext("2d");
+	steps = 10
+	max = {{max}}
+
+	// draw bar chart
+	new Chart(mychart1).Bar(barAccuracy, {
+		scaleOverride: true,
+		scaleSteps: steps,
+		scaleStepWidth: 0.1,
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true
+	});
+
+	new Chart(mychart2).Bar(barF1, {
+		scaleOverride: true,
+		scaleSteps: steps,
+		scaleStepWidth: 0.1,
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true
+	});
+
+    </script>
+	
+	
+{% endblock %}
